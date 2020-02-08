@@ -1,0 +1,5 @@
+data
+.DS_Store
+All_Data
+__pycache__/
+*pyc
