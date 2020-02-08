@@ -1,5 +1,5 @@
 import numpy as np
-from ../dataParser import *
+from ..dataParser import *
 from random import randint
 class data_loader():
     def __init__(file_name, path, jump=3, cutoff_percent=80, batch_size=20, days=10):
