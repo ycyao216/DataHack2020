@@ -19,4 +19,7 @@ class data_loader():
         for i in range(batch_size):
             start_index = randint(0,positions)*jump+1
             for k in range(self.days):
-                x[i,k,0] = self.rows[start_index+k][3]
+                x[i,k,:] = self.rows[start_index+k][3:6]
+            print(k)
+            y[i] = self.rows[start_index+k][3]
+        return x,y
