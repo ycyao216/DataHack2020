@@ -22,6 +22,7 @@ class transNetwork:
         # list of connections
         self.csv = csv
         self.df = pandas.read_csv(self.csv, header = 0)
+        self.headers = list(self.df.columns)
         self.network = self.csvReader()
         #dict of unique connection nagems
         self.avgPaths = self.getAllPath()
@@ -69,8 +70,20 @@ class transNetwork:
                     count += 1
             self.avgPaths[cases] = sum/count
 
+    def groupByConnection(self):
+        for cases in self.avgPaths:
+            otherData = []
+            for ind in self.df.index:
+                rowData = []
+                for heads in self.headers:
+                    if heads != origin and heads != dest:
+                        rowData.append(self.df[heads][ind])
+                otherData.append(rowData)
+            self.avgPaths[cases] = otherData
 
+#Testing
 network = transNetwork("C:\\Users\\Yunchao Yao\\Documents\\College\\Dataheck\\DataHacks\\data\\barts_hotspots.csv")
 network.calculateAverage()
 print(network.avgPaths)
-print(network.dateGroups)
+network.groupByConnection()
+print(network.avgPaths)
