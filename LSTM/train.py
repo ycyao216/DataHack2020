@@ -9,14 +9,14 @@ save_interval = 5
 
 global_step = tf.Variable(0, name="step_count")
 graph = Graph()
-loader = data_loader('../data/barts_hotspots_sorted.csv',)
+loader = data_loader('../data/barts_hotspots_sorted.csv', path)
 
-optimizer = tf.train.AdamOptimizer().minimize(mse_loss, global_step=global_step)
+optimizer = tf.train.AdamOptimizer().minimize(graph.mse_loss, global_step=global_step)
 saver = tf.train.Saver()
 with tf.Session() as sess:
     for i in range(steps):
         x_input, y_input = loader.next_batch()
-        sess.run(optimizer, params={graph.x_input:x_input,
+        sess.run(optimizer, feed_dict={graph.x_input:x_input,
             graph.y_gt:y_input})
         if(i%save_interval):
             saver.save(sess, save_directory,

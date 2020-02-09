@@ -83,8 +83,8 @@ class transNetwork:
             self.avgPaths[cases] = otherData
 
 #Testing
-network = transNetwork("C:\\Users\\Yunchao Yao\\Documents\\College\\Dataheck\\DataHacks\\data\\barts_hotspots.csv")
-network.calculateAverage()
-print(network.avgPaths)
-network.groupByConnection()
-print(network.avgPaths)
+#network = transNetwork("C:\\Users\\Yunchao Yao\\Documents\\College\\Dataheck\\DataHacks\\data\\barts_hotspots.csv")
+#network.calculateAverage()
+#print(network.avgPaths)
+#network.groupByConnection()
+#print(network.avgPaths)
