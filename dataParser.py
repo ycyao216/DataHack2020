@@ -5,7 +5,7 @@ import numpy as np
 origin = "Origin Display Name"
 dest = "Destination Display Name"
 travTime = "Daily Mean Travel Time (Seconds)"
-
+date = "Date"
 
 def csvReader(fileName):
     df = pandas.read_csv("./data/"+fileName)
@@ -20,16 +20,34 @@ class connection:
 class transNetwork:
     def __init__(self, csv):
         # list of connections
-        self.network = self.csvReader(csv)
+        self.csv = csv
+        self.df = pandas.read_csv(self.csv, header = 0)
+        self.network = self.csvReader()
         #dict of unique connection nagems
-        self.avgPaths = self.getAllPath(self)
+        self.avgPaths = self.getAllPath()
+        #dict {date: list of connections}
+        self.dateGroups = self.organizeByDate()
 
-    def csvReader(self, csv):
+    def csvReader(self):
         connectionList = []
-        df = pandas.read_csv(csv, header=0)
-        for ind in df.index:
-            connectionList.append(connection(df[origin][ind], df[dest][ind],df[travTime][ind]))
+        for ind in self.df.index:
+            connectionList.append(connection(self.df[origin][ind], self.df[dest][ind], self.df[travTime][ind]))
         return connectionList
+
+    def organizeByDate(self):
+        #dict {data: list of connections}
+        dates = dict()
+        for ind in self.df.index:
+            dateTime = self.df[date][ind]
+            o = self.df[origin][ind]
+            d = self.df[dest][ind]
+            t = self.df[travTime][ind]
+            if (dateTime not in dates):
+                dates[dateTime] = []
+                dates[dateTime].append(connection(o,d,t))
+            else:
+                dates[dateTime].append(connection(o,d,t))
+        return dates
 
     def connectSame(self, connect1, connect2):
         if (connect1.path == connect2.path):
@@ -46,7 +64,13 @@ class transNetwork:
         for cases in self.avgPaths:
             sum = count = 0
             for connections in self.network:
-                if(self.connectSame(self.avgPaths[cases],connections)):
+                if(cases == connections.path):
                     sum += connections.time
                     count += 1
             self.avgPaths[cases] = sum/count
+
+
+network = transNetwork("C:\\Users\\Yunchao Yao\\Documents\\College\\Dataheck\\DataHacks\\data\\barts_hotspots.csv")
+network.calculateAverage()
+print(network.avgPaths)
+print(network.dateGroups)
