@@ -4,3 +4,4 @@ All_Data
 __pycache__/
 *pyc
 analysis
+LSTM/models
