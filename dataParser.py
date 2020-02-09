@@ -75,10 +75,11 @@ class transNetwork:
             otherData = []
             for ind in self.df.index:
                 rowData = []
-                for heads in self.headers:
-                    if heads != origin and heads != dest:
-                        rowData.append(self.df[heads][ind])
-                otherData.append(rowData)
+                if (self.df[origin][ind] + "->" +self.df[dest][ind] == cases):
+                    for heads in self.headers:
+                        if heads != origin and heads != dest:
+                            rowData.append(self.df[heads][ind])
+                    otherData.append(rowData)
             self.avgPaths[cases] = otherData
 
 #Testing
