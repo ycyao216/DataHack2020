@@ -6,7 +6,8 @@ origin = "Origin Display Name"
 dest = "Destination Display Name"
 travTime = "Daily Mean Travel Time (Seconds)"
 
-def basicCSVreader(fileName):
+
+def csvReader(fileName):
     df = pandas.read_csv("./data/"+fileName)
     simpleArray = df.to_numpy()
     return simpleArray, df
