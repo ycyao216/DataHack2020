@@ -3,7 +3,7 @@ from label_funcs import *
 from analysis_funcs import *
 #import numpy as np
 
-parsed_data = csvReader('barts_hotspots.csv')
+parsed_data, df = csvReader('barts_hotspots_sorted.csv')
 tot_classes,map = label_dow(parsed_data)
 sorted_data = class_sort(parsed_data, tot_classes, map)
 max_length = 0
