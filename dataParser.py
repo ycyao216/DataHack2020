@@ -1,6 +1,11 @@
 import pandas
 import numpy as np
 
+
+origin = "Origin Display Name"
+dest = "Destination Display Name"
+travTime = "Daily Mean Travel Time (Seconds)"
+
 def csvReader(fileName):
     df = pandas.read_csv("./data/"+fileName)
     simpleArray = df.to_numpy()
@@ -17,9 +22,13 @@ class transNetwork:
         self.network = self.csvReader(csv)
         #dict of unique connection nagems
         self.avgPaths = self.getAllPath(self)
-        
+
     def csvReader(self, csv):
-        df = pandas.DataForm();
+        connectionList = []
+        df = pandas.read_csv(csv, header=0)
+        for ind in df.index:
+            connectionList.append(connection(df[origin][ind], df[dest][ind],df[travTime][ind]))
+        return connectionList
 
     def connectSame(self, connect1, connect2):
         if (connect1.path == connect2.path):
