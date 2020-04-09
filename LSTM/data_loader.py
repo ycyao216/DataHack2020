@@ -25,4 +25,9 @@ class data_loader():
             for k in range(self.days):
                 x[i,k,:] = self.rows[start_index+k][3:6]
             y[i] = self.rows[start_index+self.days][3]
+        # Normalize with mean
+        x[:, :, 0] /= 665.0
+        x[:, :, 1] /= 491.7
+        x[:, :, 2] /= 901.0
+        y /= 665.0
         return x,y
