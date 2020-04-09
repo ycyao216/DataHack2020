@@ -4,7 +4,7 @@ from data_loader import *
 
 path = 'Embarcadero, San Francisco, CA->Fisherman\'s Wharf, San Francisco, CA'
 save_directory = './models/'
-steps = 2000
+steps = 200
 save_interval = 50
 
 global_step = tf.Variable(0, name="step_count")
@@ -29,15 +29,15 @@ with tf.Session() as sess:
             print('Gradients on MSE loss')
             print(gradients)
 
-            flat_x = sess.run(graph.pre_middle, feed_dict={graph.x_input:x_input,
+            pre_middle = sess.run(graph.pre_middle, feed_dict={graph.x_input:x_input,
                                                        graph.y_gt:y_input})
             print('pre_middle')
-            print(flat_x)
+            print(pre_middle)
 
-            flat_x = sess.run(graph.middle, feed_dict={graph.x_input:x_input,
+            middle = sess.run(graph.middle, feed_dict={graph.x_input:x_input,
                 graph.y_gt:y_input})
             print('middle')
-            print(flat_x)
+            print(middle)
 
             print('y input')
             print(y_input)
